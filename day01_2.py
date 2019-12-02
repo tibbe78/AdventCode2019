@@ -1,7 +1,7 @@
 # --- Day 1: The Tyranny of the Rocket Equation ---
 # Part Two
 
-import math 
+import sys, math 
 
 # Should we debug or not.
 debug = False
@@ -15,7 +15,13 @@ def CalcFuel(mass):
 
 # Open input file as read-only and calculate fuel for each module
 # Input file has the mass och each module on each row
-file = open('day01_input.txt', 'r') 
+try:  
+    file = open('day01_input.txt', 'r') 
+except IOError:
+    print("Can't open file!!")
+    sys.exit(0)
+
+# Loop each line in file
 for line in file:
     moduleMass = int(line.strip())
     if debug: print("Module mass: " + str(moduleMass))
