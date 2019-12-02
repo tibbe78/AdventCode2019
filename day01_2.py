@@ -21,7 +21,7 @@ What is the sum of the fuel requirements for all of the modules on your spacecra
 import math 
 
 # Should we debug or not.
-debug = True
+debug = False
 
 # Total Fuel required and also what we should calculate
 totalFuel = 0
