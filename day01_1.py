@@ -36,4 +36,4 @@ with open('day01-input.txt') as openFile:
         if debug: print("Fuel required: " + str(fuelRequired) + '\n')
 openFile.close()
 
-print("The total amount of fuel is: " + str(totalFuel) + '\n')
+print("The total amount of fuel required is: " + str(totalFuel) + '\n')

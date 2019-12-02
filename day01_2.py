@@ -42,5 +42,6 @@ with open('day01-input.txt') as openFile:
             totalFuel += fuelRequired
             if debug: print("Fuel required: " + str(fuelRequired) + '\n')
             fuelRequired = CalcFuel(fuelRequired)
-                
 openFile.close()
+
+print("The total amount of fuel required is: " + str(totalFuel) + '\n')
