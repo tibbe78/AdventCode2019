@@ -6,29 +6,36 @@ import sys
 # Should we debug or not.
 debug = False
 
+# the opcode list initilized as a list... :)
 opCodeList = list
 
+# Add function that returns true if there is an error.
 def Addfunct(pos1, pos2, pos3, _len):
     if debug: print("Add function args are:  " + str(pos1) + " " + str(pos2) + " " + str(pos3))
+    # check so the values isn't larger than lenght of List (error otherwise)
     if pos1 > _len or pos2 > _len or pos3 > _len:
         return True
     else:
         opCodeList[pos3] = opCodeList[pos1] + opCodeList[pos2]
         return False
 
+# Multiply function that returns true if there is an error.
 def Multfunct(pos1, pos2, pos3, _len):
     if debug: print("Mult function args are: " + str(pos1) + " " + str(pos2) + " " + str(pos3))
+    # check so the values isn't larger than lenght of List (error otherwise)
     if pos1 > _len or pos2 > _len or pos3 > _len:
         return True
     else:
         opCodeList[pos3] = opCodeList[pos1] * opCodeList[pos2]
         return False
 
+# Exit function that should run when program is finished
 def Exitfunct(_noun, _verb):
     if debug: 
         print("OpCode List values are: ")
         print(*opCodeList, sep = ",")
     print("correct values are noun: " + str(_noun) + " and verb: " + str(_verb))
+    print("correct answer is: " + str(100 * _noun + _verb))
     sys.exit(0)
 
 
