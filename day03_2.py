@@ -1,5 +1,5 @@
 # --- Day 3: Crossed Wires ---
-# Part One
+# Part Two
 
 import sys , string
 from dataclasses import dataclass
@@ -9,12 +9,10 @@ class Point:
     def __init__(self,x_init,y_init,line_init):
         self.x = x_init
         self.y = y_init
-        self.line = line_init
    
     # Return a Name of the object if asked...
     def __repr__(self):
-        return 'Point'
-        #return "x:"+ str(self.x) +"y:"+ str(self.y)# +"line:"+  str(self.line)
+        return self.x+'_'+self.y
 
 # Should we debug or not.
 debug = False
@@ -24,25 +22,17 @@ lineLists = []
 linePos = []
 
 # List of crossings
-lineCross1 = []
-lineCross2 = []
+lineCross = []
 
 # create two positions for each list so we know where they are in X, Y and linenum
 linePos.append(Point(0,0,0))
 linePos.append(Point(0,0,1))
-
-gridSize = 20000
-# Init a 2D grid with gridSize/2 i each direction. so we have enough space... (Ugly)
-#grid = [[Point(0,0,0) for i in range(10)] for j in range(gridSize)]
-grid = [[0]*gridSize for i in range(gridSize)]
 
 # Test same thing with set
 setList = []
 setList.append(set())
 setList.append(set())
 
-# set the middle of the grid. (don't want minus in my list array)
-gridNull = int(gridSize / 2)
 
 # Go in the correct direction.
 def GoUp(steps, lineNum):
@@ -73,15 +63,6 @@ def GoSteps(steps, xDir, yDir, lineNum):
         localY += yDir
         # Test adding to set
         setList[lineNum].add(str(localX) + '_' + str(localY))
-        # Check if grid is not initilized
-        if grid[gridNull+localX][gridNull+localY] == 0:
-            grid[gridNull+localX][gridNull+localY] = Point(localX,localY,lineNum)
-        # If the line numbers don't match we have a intersection.
-        elif grid[gridNull+localX][gridNull+localY].line != lineNum:
-            if debug: print("Crossing at X:" + str(localX) +" & Y:" + str(localY)  + " !!")
-            # Append distance to lineCrossings list.
-            lineCross1.append(CalcDist(localX,localY))
-        if debug: print(grid[gridNull+localX][gridNull+localY])
     linePos[lineNum].x = localX
     linePos[lineNum].y = localY
     if debug: print("local X = " + str(localX))
@@ -108,14 +89,11 @@ for i in range(2):
     lineRaw.append(file.readline().strip())
     if debug: print("Raw" + str(i) + ": " + lineRaw[i] + '\n')
 
-#lineRaw[0] = 'R8,U5,L5,D3'
-#lineRaw[1] = 'U7,R6,D4,L4'
+# test example 1 for debugging 610 steps
+lineRaw[0] = 'R75,D30,R83,U83,L12,D49,R71,U7,L72'
+lineRaw[1] = 'U62,R66,U55,R34,D71,R55,D58,R83'
 
-# test example 1 for debugging intersect at distance 159...hade missat abs på taxidriver distance.
-#lineRaw[0] = 'R75,D30,R83,U83,L12,D49,R71,U7,L72'
-#lineRaw[1] = 'U62,R66,U55,R34,D71,R55,D58,R83'
-
-# test example 2 for debugging intersect at distance 135
+# test example 2 for debugging 410 steps
 #lineRaw[0] = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51'
 #lineRaw[1] = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7'
 
@@ -136,24 +114,21 @@ for nr in range(2):
         elif (lineLists[nr][i][:1] == 'R'): GoRight(lineLists[nr][i][1:],nr)
         elif (lineLists[nr][i][:1] == 'L'): GoLeft(lineLists[nr][i][1:],nr)
 
-lineCross1.sort()
-print(lineCross1)
-
 # Testing with sets
 for hashName in (setList[0] & setList[1]):
     x = int(hashName.split("_")[0])
     y = int(hashName.split("_")[1])
-    lineCross2.append(CalcDist(x,y))
+    lineCross.append(CalcDist(x,y))
 
-lineCross2.sort()
-print(lineCross2)
+lineCross.sort()
+print(lineCross)
 
 
-
-"""  two wires are connected to a central port and extend outward on a grid. 
-You trace the path each wire takes as it leaves the central port, one wire per line of text (your puzzle input).
-The wires twist and turn, but the two wires occasionally cross paths. 
-To fix the circuit, you need to find the intersection point closest to the central port. 
-Because the wires are on a grid, use the Manhattan distance for this measurement. 
-While the wires do technically cross right at the central port where they both start, this point does not count, nor does a wire count as crossing with itself.
+"""  It turns out that this circuit is very timing-sensitive; you actually need to minimize the signal delay.
+To do this, calculate the number of steps each wire takes to reach each intersection; 
+choose the intersection where the sum of both wires' steps is lowest. 
+If a wire visits a position on the grid multiple times, use the steps value from the first time 
+it visits that position when calculating the total value of a specific intersection.
+The number of steps a wire takes is the total number of grid squares the wire has entered to get to that location, including 
+the intersection being considered. Again consider the example from above:
 """
