@@ -5,14 +5,15 @@ import sys , string
 from dataclasses import dataclass
 
 @dataclass
-class Point:
-    def __init__(self,x_init,y_init,line_init):
+class Point(object):
+    def __init__(self,x_init,y_init):
         self.x = x_init
         self.y = y_init
-   
+    x = int
+    y = int
     # Return a Name of the object if asked...
-    def __repr__(self):
-        return self.x+'_'+self.y
+    #def __repr__(self):
+    #    return self
 
 # Should we debug or not.
 debug = False
@@ -21,12 +22,16 @@ debug = False
 lineLists = []
 linePos = []
 
+stepsTaken=[]
+stepsTaken.append([])
+stepsTaken.append([])
+
 # List of crossings
 lineCross = []
 
 # create two positions for each list so we know where they are in X, Y and linenum
-linePos.append(Point(0,0,0))
-linePos.append(Point(0,0,1))
+linePos.append(Point(0,0))
+linePos.append(Point(0,0))
 
 # Test same thing with set
 setList = []
@@ -63,6 +68,8 @@ def GoSteps(steps, xDir, yDir, lineNum):
         localY += yDir
         # Test adding to set
         setList[lineNum].add(str(localX) + '_' + str(localY))
+        # Calc steps taken with a list of steps..
+        stepsTaken[lineNum].append(Point(localX,localY))
     linePos[lineNum].x = localX
     linePos[lineNum].y = localY
     if debug: print("local X = " + str(localX))
@@ -104,8 +111,7 @@ for i in range(2):
         print("Line "+ str(i) +" List data: ")
         print(*lineLists[i], sep = ",")
     if debug: print("Line "+ str(i) +" List lenght: " + str(len(lineLists[i])))
-
-
+ 
 for nr in range(2):
     for i in range(len(lineLists[nr])):
         # Split substring to only look at direction and value.
@@ -114,14 +120,26 @@ for nr in range(2):
         elif (lineLists[nr][i][:1] == 'R'): GoRight(lineLists[nr][i][1:],nr)
         elif (lineLists[nr][i][:1] == 'L'): GoLeft(lineLists[nr][i][1:],nr)
 
+tempSteps = []
+tempSteps.append(set())
+tempSteps.append(set())
+
+optimizedSteps = []
+
 # Testing with sets
 for hashName in (setList[0] & setList[1]):
     x = int(hashName.split("_")[0])
     y = int(hashName.split("_")[1])
-    lineCross.append(CalcDist(x,y))
-
-lineCross.sort()
-print(lineCross)
+    for i in range(2):
+        j = 0
+        tempSteps[i].clear()
+        while stepsTaken[i][j].x != x and stepsTaken[i][j].y != y:
+            tempSteps[i].add(str(stepsTaken[i][j].x) + '_' + str(stepsTaken[i][j].y))
+            j+=1
+    optimizedSteps.append(len(tempSteps[0]) + len(tempSteps[1]))
+    
+              
+print(optimizedSteps)
 
 
 """  It turns out that this circuit is very timing-sensitive; you actually need to minimize the signal delay.
