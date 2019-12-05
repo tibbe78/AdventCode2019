@@ -9,8 +9,6 @@ class Point(object):
     def __init__(self,x_init,y_init):
         self.x = x_init
         self.y = y_init
-    x = int
-    y = int
     # Return a Name of the object if asked...
     #def __repr__(self):
     #    return self
@@ -18,10 +16,9 @@ class Point(object):
 # Should we debug or not.
 debug = False
 
-# Create lists to store the lines and the position we are in.
-lineLists = []
-linePos = []
 
+
+# list of steps to count two lists in this list...
 stepsTaken=[]
 stepsTaken.append([])
 stepsTaken.append([])
@@ -29,11 +26,12 @@ stepsTaken.append([])
 # List of crossings
 lineCross = []
 
-# create two positions for each list so we know where they are in X, Y and linenum
+# create two positions for each list so we know where they are in X, Y
+linePos = []
 linePos.append(Point(0,0))
 linePos.append(Point(0,0))
 
-# Test same thing with set
+# Set lists to find unique steps.
 setList = []
 setList.append(set())
 setList.append(set())
@@ -58,7 +56,7 @@ def GoLeft(steps, lineNum):
     
 # Go steps in a direction
 def GoSteps(steps, xDir, yDir, lineNum):
-    if debug: print("Going " + str(steps) + " Steps for line: " + str(lineNum))
+    if debug: print("Going " + steps + " Steps for line: " + str(lineNum))
     # Fetch the previous position
     localX = linePos[lineNum].x
     localY = linePos[lineNum].y
@@ -66,18 +64,14 @@ def GoSteps(steps, xDir, yDir, lineNum):
         # Move in correct direction
         localX += xDir
         localY += yDir
-        # Test adding to set
+        # Adding hash to set to get unique steps
         setList[lineNum].add(str(localX) + '_' + str(localY))
-        # Calc steps taken with a list of steps..
+        # add steps to list of steps so we can count them later.
         stepsTaken[lineNum].append(Point(localX,localY))
     linePos[lineNum].x = localX
     linePos[lineNum].y = localY
     if debug: print("local X = " + str(localX))
     if debug: print("local Y = " + str(localY))
-
-# Calc dist from intersection to start(0,0)
-def CalcDist(x,y):
-    return abs((0-abs(x)) + (0-abs(y)))
 
 # Open input opCode file run the computer based on the rules.
 # Input file has opcode and values split by comma
@@ -96,50 +90,81 @@ for i in range(2):
     lineRaw.append(file.readline().strip())
     if debug: print("Raw" + str(i) + ": " + lineRaw[i] + '\n')
 
+# small test for debugging 30 steps
+#lineRaw[0] = 'R8,U5,L5,D3'
+#lineRaw[1] = 'U7,R6,D4,L4'
+
 # test example 1 for debugging 610 steps
-lineRaw[0] = 'R75,D30,R83,U83,L12,D49,R71,U7,L72'
-lineRaw[1] = 'U62,R66,U55,R34,D71,R55,D58,R83'
+#lineRaw[0] = 'R75,D30,R83,U83,L12,D49,R71,U7,L72'
+#lineRaw[1] = 'U62,R66,U55,R34,D71,R55,D58,R83'
 
 # test example 2 for debugging 410 steps
-#lineRaw[0] = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51'
-#lineRaw[1] = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7'
+lineRaw[0] = 'R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51'
+lineRaw[1] = 'U98,R91,D20,R16,D67,R40,U7,R15,U6,R7'
+
+# Create lists to store the lines and the position we are in.
+lineLists = []
 
 # split the raw string in a list
-for i in range(2):
-    lineLists.append(lineRaw[i].split(","))
+for nr in range(2):
+    lineLists.append(lineRaw[nr].split(","))
     if debug:
-        print("Line "+ str(i) +" List data: ")
-        print(*lineLists[i], sep = ",")
-    if debug: print("Line "+ str(i) +" List lenght: " + str(len(lineLists[i])))
+        print("Line "+ str(nr) +" List data: ")
+        print(*lineLists[nr], sep = ",")
+    if debug: print("Line "+ str(nr) +" List lenght: " + str(len(lineLists[nr])))
  
 for nr in range(2):
     for i in range(len(lineLists[nr])):
+        if debug: print("Dir: " + str(lineLists[nr][i][:1]) + " Len: " + str(lineLists[nr][i][1:]))
         # Split substring to only look at direction and value.
         if (lineLists[nr][i][:1] == 'U'): GoUp(lineLists[nr][i][1:],nr)
         elif (lineLists[nr][i][:1] == 'D'): GoDown(lineLists[nr][i][1:],nr)
         elif (lineLists[nr][i][:1] == 'R'): GoRight(lineLists[nr][i][1:],nr)
         elif (lineLists[nr][i][:1] == 'L'): GoLeft(lineLists[nr][i][1:],nr)
+        else: print("ERRROR!!!")
 
 tempSteps = []
 tempSteps.append(set())
 tempSteps.append(set())
 
-optimizedSteps = []
+temp2Steps = []
+temp2Steps.append(0)
+temp2Steps.append(0)
 
-# Testing with sets
+optimizedSteps = []
+optimized2Steps = []
+
+# find steps in both lists = crossings
 for hashName in (setList[0] & setList[1]):
     x = int(hashName.split("_")[0])
     y = int(hashName.split("_")[1])
+    if debug: print(str(abs(x)+abs(y)))
+    if debug:
+        print("x=" + str(x))
+        print("y=" + str(y))
+    # Count the steps taken until we come to a crossing
     for i in range(2):
         j = 0
         tempSteps[i].clear()
-        while stepsTaken[i][j].x != x and stepsTaken[i][j].y != y:
-            tempSteps[i].add(str(stepsTaken[i][j].x) + '_' + str(stepsTaken[i][j].y))
+        temp2Steps[i] = 1
+        tempSteps[i].add(str(stepsTaken[i][j].x) + '_' + str(stepsTaken[i][j].y))
+        while (stepsTaken[i][j].x != x) or (stepsTaken[i][j].y != y):
             j+=1
+            temp2Steps[i] += 1
+            tempSteps[i].add(str(stepsTaken[i][j].x) + '_' + str(stepsTaken[i][j].y))
+            if debug: print("x=" + str(stepsTaken[i][j].x) + ' y=' + str(stepsTaken[i][j].y))
+    optimized2Steps.append(temp2Steps[0] + temp2Steps[1])
     optimizedSteps.append(len(tempSteps[0]) + len(tempSteps[1]))
-    
-              
+
+# One short!!???
+optimizedSteps.sort()             
 print(optimizedSteps)
+           
+print('\n\n')
+
+# this works don't know why???
+optimized2Steps.sort()             
+print(optimized2Steps)
 
 
 """  It turns out that this circuit is very timing-sensitive; you actually need to minimize the signal delay.
