@@ -96,20 +96,3 @@ for noun1 in range(0, 100):
             i += 4
 
 print("Didn't find a solution!!!!!!")
-
-# Opcode 1 adds together numbers read from two positions and stores the result in a third position.
-# Opcode 2 works exactly like opcode 1, except it multiplies the two inputs instead of adding them.
-# Opcode 99 means that the program is finished and should immediately halt.
-
-# You need to determine what pair of inputs produces the output 19690720? 
-
-
-""" The inputs should still be provided to the program by replacing the values at addresses 1 and 2, 
-just like before. In this program, the value placed in address 1 is called the noun, 
-and the value placed in address 2 is called the verb. Each of the two input values will be between 0 and 99, inclusive.
-
-Once the program has halted, its output is available at address 0 
-
-Find the input noun and verb that cause the program to produce the output 19690720.
-What is 100 * noun + verb? (For example, if noun=12 and verb=2, the answer would be 1202.)
-"""

@@ -120,10 +120,3 @@ while level > 0:
         jumps += 1
         SAN = SAN.parent
 
-
-""" 
-Now, you just need to figure out how many orbital transfers you (YOU) need to take to get to Santa (SAN).
-You start at the object YOU are orbiting; 
-your destination is the object SAN is orbiting. 
-An orbital transfer lets you move from any object to an object orbiting or orbited by that object.
- """

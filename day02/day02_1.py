@@ -66,22 +66,3 @@ while i < len(opCodeList) - 3:
         sys.exit(1)
     # Jump forward to next opcode
     i += 4
-
-# Opcode 1 adds together numbers read from two positions and stores the result in a third position.
-# Opcode 2 works exactly like opcode 1, except it multiplies the two inputs instead of adding them.
-# Once you're done processing an opcode, move to the next one by stepping forward 4 positions.
-# Opcode 99 means that the program is finished and should immediately halt.
-
-""" Once you have a working computer, 
-the first step is to restore the gravity assist program (your puzzle input) 
-to the "1202 program alarm" state it had just before the last computer caught fire. 
-To do this, before running the program, replace position 1 with the value 12 and replace position 2 with the value 2.
-
-What value is left at position 0 after the program halts? 
-
-examples:
-1,0,0,0,99 becomes 2,0,0,0,99 (1 + 1 = 2).
-2,3,0,3,99 becomes 2,3,0,6,99 (3 * 2 = 6).
-2,4,4,5,99,0 becomes 2,4,4,5,99,9801 (99 * 99 = 9801).
-1,1,1,4,99,5,6,0,99 becomes 30,1,1,4,2,5,6,0,99.
-"""

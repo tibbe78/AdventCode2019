@@ -148,12 +148,3 @@ for hashName in (setList[0] & setList[1]):
 lineCross2.sort()
 print(lineCross2)
 
-
-
-"""  two wires are connected to a central port and extend outward on a grid. 
-You trace the path each wire takes as it leaves the central port, one wire per line of text (your puzzle input).
-The wires twist and turn, but the two wires occasionally cross paths. 
-To fix the circuit, you need to find the intersection point closest to the central port. 
-Because the wires are on a grid, use the Manhattan distance for this measurement. 
-While the wires do technically cross right at the central port where they both start, this point does not count, nor does a wire count as crossing with itself.
-"""
