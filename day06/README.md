@@ -27,7 +27,7 @@ Before you use your map data to plot a course, you need to make sure it wasn't c
 Whenever A orbits B and B orbits C, then A indirectly orbits C. This chain can be any number of objects long: if A orbits B, B orbits C, and C orbits D, then A indirectly orbits D.
 
 For example, suppose you have the following map:
-
+```
 COM)B
 B)C
 C)D
@@ -39,13 +39,15 @@ D)I
 E)J
 J)K
 K)L
+```
 Visually, the above map of orbits looks like this:
-
+```
         G - H       J - K - L
        /           /
 COM - B - C - D - E - F
                \
                 I
+```
 In this visual representation, when two objects are connected by a line, the one on the right directly orbits the one on the left.
 
 Here, we can count the total number of orbits as follows:
@@ -63,7 +65,7 @@ Now, you just need to figure out how many orbital transfers you (YOU) need to ta
 You start at the object YOU are orbiting; your destination is the object SAN is orbiting. An orbital transfer lets you move from any object to an object orbiting or orbited by that object.
 
 For example, suppose you have the following map:
-
+```
 COM)B
 B)C
 C)D
@@ -77,8 +79,9 @@ J)K
 K)L
 K)YOU
 I)SAN
+```
 Visually, the above map of orbits looks like this:
-
+```
                           YOU
                          /
         G - H       J - K - L
@@ -86,6 +89,7 @@ Visually, the above map of orbits looks like this:
 COM - B - C - D - E - F
                \
                 I - SAN
+```
 In this example, YOU are in orbit around K, and SAN is in orbit around I. To move from K to I, a minimum of 4 orbital transfers are required:
 
 K to J
@@ -93,7 +97,7 @@ J to E
 E to D
 D to I
 Afterward, the map of orbits looks like this:
-
+```
         G - H       J - K - L
        /           /
 COM - B - C - D - E - F
@@ -101,4 +105,5 @@ COM - B - C - D - E - F
                 I - SAN
                  \
                   YOU
+```
 What is the minimum number of orbital transfers required to move from the object YOU are orbiting to the object SAN is orbiting? (Between the objects they are orbiting - not between YOU and SAN.)
