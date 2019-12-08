@@ -151,7 +151,7 @@ except IOError:
 
 # Read first line and strip end '\n'
 opCodeRaw = file.readline().strip()
-if debug: print("OpCode Raw: " + opCodeRaw)
+if debug: print("OpCode Raw: {}".format(opCodeRaw))
 
 # Close the file.
 file.close()
