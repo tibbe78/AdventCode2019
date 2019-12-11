@@ -9,18 +9,22 @@ from dataclasses import dataclass
 @dataclass
 class IntCode:
     def __init__(self, _instrPoint : int, _compMem: list):
-        self.blob = str(_compMem[_instrPoint]) # Like "1102"
-        self.opcode = int(self.blob[-2:]) # Like 02
-        self.param = list() # parameters to the opcode
-        self.value = list() # values based on parameter & mode
-        self.pModesRaw = self.blob[:-2] # parameter modes
+        """
+        Init the Class IntCode with the instruction pointer and a pointer to the ComputerMem (program)
+        """
+        self.blob = str(_compMem[_instrPoint]) # Like '1102'
+        self.opcode = int(self.blob[-2:]) # start at -2 in string. Like '02' from blob
+        self.param = list() # parameters to the opcode as a list.
+        self.value = list() # values based on parameter & mode as a list
+        self.pModesRaw = self.blob[:-2] # parameter modes, end at -2 in string. like '11' from above '1102' blob
+        self.pModesRevList = list(self.pModesRaw)[::-1] # Reveresed list of the parameters
         self.pMode = [0,0,0] # set the parameter modes default
         self.instrPoint = _instrPoint
         self.basePointer = None
-        self.compMem = _compMem # Pointer to the rest of the program
-        # find & set parameter modes
-        for i in range(len(self.pModesRaw)-1,-1,-1): # the range goes from 2 to 0 backwards -1 because it don't stop with 0 
-            self.pMode[i] = (int(list(self.pModesRaw)[::-1][i])) # Wow this took time... maka a list of the string, reverse it [::-1] and the select num i.
+        self.compMem = _compMem # Pointer to the rest of the computerMem or program.
+        # find & set parameter modes like [0,1,1] from above raw pmodes.
+        for i in range(len(self.pModesRevList)): # for each parameter we have a setting for. Else 0
+            self.pMode[i] = (int(self.pModesRevList[i])) # set the pmode to the pmode in the list
 
     def GetInstrPointer(self) -> int:
         return self.instrPoint
@@ -129,7 +133,7 @@ opCodeRaw = file.readline().strip()
 opCodeList = list(map(int, opCodeRaw.split(","))).copy()
 
 # Example takes no input and produces a copy of itself as output.
-#opCodeList = [109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99] 
+# opCodeList = [109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99] 
 
 # Example should output a 16-digit number.
 #opCodeList = [1102,34915192,34915192,7,4,7,99,0] 
