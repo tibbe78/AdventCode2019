@@ -1,5 +1,5 @@
 # --- Day 9: Sensor Boost ---
-# Part One
+# Part One & Two
 
 import sys
 from dataclasses import dataclass
@@ -31,22 +31,36 @@ class IntCode:
     def GetBasePointer(self) -> int:
         return self.basePointer
     
-    def SetParameters(self, num, writeNum=9):
-        for i in range(num):
-            self.param.append(self.compMem[self.instrPoint+(i+1)])
+    def SetParameters(self, num, writeNum=9): 
+        """
+        Set the parameters acompaning the Operation Code. Can be up to three
+        parameters. num is equal to the amount of parameters and writeNum specifies if one
+        of them is the write parameter and should be handled specially.
+        """
+        for i in range(num): # Create one parameter at the time.
+            paramLocation = self.instrPoint+(i+1) # the location of the parameter in the Computer Mem
+            self.param.append(self.compMem[paramLocation]) # Create the parameter to the opcode.
+            
+            # if the parameter refers to a memory outside of range, add more memory
+            if (self.pMode[i] == 0 or self.pMode[i] == 2): # not applicable for direct mode.
+                totalMem = (self.basePointer + self.param[i]) if self.pMode[i] == 2 else self.param[i]
+                if totalMem >= len(self.compMem):
+                    for j in range(totalMem-len(self.compMem)+1): # Add the amount of memory missing
+                        self.compMem.append(0)
+
+            # If the mode to parameter is 0 = Position mode.
             if (self.pMode[i] == 0): 
-                if self.param[i] >= len(self.compMem): # if it refers to a memory outside of range, add more memory
-                    for j in range(self.param[i]-len(self.compMem)+1):
-                        self.compMem.append(0)
-                if i == writeNum: self.value.append(self.param[i])
-                else: self.value.append(self.compMem[self.param[i]])
+                if i == writeNum: self.value.append(self.param[i]) # if this is the write parameter send only back location
+                else: self.value.append(self.compMem[self.param[i]]) # Else send back value of location
+
+            # If the mode to parameter is 1 = Direct mode.
             elif (self.pMode[i] == 1): self.value.append(self.param[i])
+
+            # If the mode to parameter is 2 = Relative mode
             elif (self.pMode[i] == 2): 
-                if (self.basePointer + self.param[i]) >= len(self.compMem): # if it refers to a memory outside of range, add more memory
-                    for j in range((self.basePointer + self.param[i])-len(self.compMem)+1):
-                        self.compMem.append(0)
                 if i == writeNum: self.value.append(self.basePointer + self.param[i])
                 else: self.value.append(self.compMem[self.basePointer + self.param[i]])
+
             else: print("Error!!")
 
     def Add(self): # Add function that Add two values together
@@ -123,17 +137,17 @@ opCodeList = list(map(int, opCodeRaw.split(","))).copy()
 # Example should output the large number in the middle.
 #opCodeList = [104,1125899906842624,99] 
 
-# instruction pointer in the opcode
+# instruction pointer in the opcode so we know where in the code we are.
 instrPoint = 0
 
-# Relative Base Pointer
+# Relative Base Pointer, will be changed by the program.
 relativeBase = 0
 
 # Go through the oplist and check the values
 while instrPoint < len(opCodeList):
 
-    intCode = IntCode(instrPoint,opCodeList)
-    intCode.SetBasePointer(relativeBase)
+    intCode = IntCode(instrPoint,opCodeList) # init the IntCode class
+    intCode.SetBasePointer(relativeBase) # set the basePointer
     if intCode.opcode == 1: intCode.Add()
     elif intCode.opcode == 2: intCode.Multiply()
     elif intCode.opcode == 3: intCode.GetInput()
@@ -150,8 +164,8 @@ while instrPoint < len(opCodeList):
         print("Error no opCode??!!")
         sys.exit(0)
     
-    instrPoint = intCode.GetInstrPointer()
-    relativeBase = intCode.GetBasePointer()
+    instrPoint = intCode.GetInstrPointer() # Get back the updated instruction pointer
+    relativeBase = intCode.GetBasePointer() # and alsi the BasePointer or as called Relative Pointer.
     
 
 print("Didn't find a solution!!!!!!")
