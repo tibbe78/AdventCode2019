@@ -1,10 +1,12 @@
 # AdventCode2019
+
 Solving Advent Code 2019
 https://adventofcode.com/2019
 
 ## --- Day 11: Space Police ---
 
 ### --- Part One ---
+
 On the way to Jupiter, you're pulled over by the Space Police.
 
 "Attention, unmarked spacecraft! You are in violation of Space Law! All spacecraft must have a clearly visible registration identifier! You have 24 hours to comply or be sent to Space Jail!"
@@ -24,13 +26,17 @@ After the robot turns, it should always move forward exactly one panel. The robo
 The robot will continue running for a while like this and halt when it is finished drawing. Do not restart the Intcode computer inside the robot during this process.
 
 For example, suppose the robot is about to start running. Drawing black panels as ., white panels as #, and the robot pointing the direction it is facing (< ^ > v), the initial state and region near the robot looks like this:
+
 ```
+
 .....
 .....
 ..^..
 .....
 .....
+
 ```
+
 The panel under the robot (not visible here because a ^ is shown instead) is also black, and so any input instructions at this point should be provided 0. Suppose the robot eventually outputs 1 (paint white) and then 0 (turn left). After taking these actions and moving forward one panel, the region now looks like this:
 ```
 .....
