@@ -51,7 +51,7 @@ for axis in range(3):
         # Calc Position only for x axis
         for moon in moonlist:
             moon.FindPeriod2(axis)
-        # find when they are all back at start
+        # find when the axis are back at start
         for i in range(4):
             if moonlist[i].position[axis] == moonlist2[i].position[axis] and moonlist[i].velocity[axis] == moonlist2[i].velocity[axis]:
                 state += 1
