@@ -43,5 +43,16 @@ class Moon:
         for i in range(3):
             self.position[i] += self.velocity[i]
 
+    def FindPeriod1(self, i, moonlist: List['Moon']):
+        for moon2 in moonlist:
+            if self.id != moon2.id:
+                    if self.position[i] < moon2.position[i]:
+                        self.velocity[i] += 1
+                    if self.position[i] > moon2.position[i]:
+                        self.velocity[i] -= 1
+
+    def FindPeriod2(self, i):
+        self.position[i] += self.velocity[i]
+
     def __repr__(self):
         return self.name
