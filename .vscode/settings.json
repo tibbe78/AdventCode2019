@@ -5,4 +5,9 @@
     "python.linting.enabled": true,
     "cSpell.allowCompoundWords": true,
     "vsintellicode.features.python.deepLearning": "enabled",
+    "cSpell.ignoreWords": [
+        "pmode",
+        "pmodes",
+        "pygame"
+    ],
 }
