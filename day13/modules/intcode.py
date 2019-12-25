@@ -74,9 +74,7 @@ class IntCode:
 
     def GetInput(self, arcade: Arcade):
         self.SetParameters(1,0)
-        self.compMem[self.value[0]] = 1
-        print("This should not get input!!!??")
-        print(arcade)
+        self.compMem[self.value[0]] = arcade.GetJoystickPos()
         self.instrPoint += 2
 
     def SendOutput(self, arcade: Arcade):

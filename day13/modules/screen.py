@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from day13.modules.tile import Tile
+
 #from typing import Dict
-from day13.modules.drawscreen import DrawScreen
 
 @dataclass
 class Screen:
@@ -25,11 +25,6 @@ class Screen:
         if not tile.name in self.grid.keys():
             self.AddTile(tile)
 
-    def GetType(self, tile: Tile) -> int:
-        self.CheckIfExists(tile)
-        return self.grid[tile.name].tileType
-
     def SetType(self, tile):
         self.CheckIfExists(tile)
-        self.grid[tile.name].tileType = tile.tileType
-        DrawScreen.Update(self)
+        self.grid[tile.name].type = tile.type

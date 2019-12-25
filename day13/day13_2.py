@@ -4,9 +4,7 @@
 import sys
 from day13.modules.arcade import Arcade
 from day13.modules.intcode import IntCode
-from day13.modules.drawimage import DrawImage
-from day13.modules.utils import CountBlockTiles
-from day13.modules.drawscreen import DrawScreen
+from day13.modules.rendergame import RenderGame
 
 arcade = Arcade()
 
@@ -43,10 +41,9 @@ while instrPoint < len(opCodeList):
     elif intCode.opcode == 8: intCode.IfEquals()
     elif intCode.opcode == 9: intCode.ChangeBase()
     elif intCode.opcode == 99:
-        print("OpCode 99 Exit")
-        CountBlockTiles(arcade.screen)
-        DrawScreen.Quit(arcade.screen)
-        DrawImage(arcade)
+        print("Game Quit")
+        print("Arcade Score: {}".format(arcade.score.value))
+        RenderGame.Quit()
         sys.exit(0)
     else:
         print("Error no opCode??!!")
