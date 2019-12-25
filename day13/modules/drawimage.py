@@ -37,10 +37,10 @@ def DrawImage(arcade: Arcade):
         scaleY = (arcade.screen.grid[tile].y) * imgScale
         # draw pixel but scaled
 
-        if arcade.screen.grid[tile].tileType == 1: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=walls)
-        elif arcade.screen.grid[tile].tileType == 2: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=block)
-        elif arcade.screen.grid[tile].tileType == 3: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=paddle)
-        elif arcade.screen.grid[tile].tileType == 4: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=ball)
+        if arcade.screen.grid[tile].type == 1: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=walls)
+        elif arcade.screen.grid[tile].type == 2: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=block)
+        elif arcade.screen.grid[tile].type == 3: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=paddle)
+        elif arcade.screen.grid[tile].type == 4: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=ball)
     rotated = img.rotate(180)
     flipped = ImageOps.mirror(rotated)
     img.show()

@@ -6,7 +6,6 @@ from day13.modules.arcade import Arcade
 from day13.modules.intcode import IntCode
 from day13.modules.drawimage import DrawImage
 from day13.modules.utils import CountBlockTiles
-from day13.modules.drawscreen import DrawScreen
 
 arcade = Arcade()
 
@@ -42,7 +41,6 @@ while instrPoint < len(opCodeList):
     elif intCode.opcode == 99:
         print("OpCode 99 Exit")
         CountBlockTiles(arcade.screen)
-        DrawScreen.Quit(arcade.screen)
         DrawImage(arcade)
         sys.exit(0)
     else:
