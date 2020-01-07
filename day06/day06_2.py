@@ -15,13 +15,13 @@ class Planet:
 
     def AddParent(self, planet):
         self.parent = planet
-    
+
     def SetLevel(self, level):
         self.level = level
-    
+
     def AddChild(self, planet):
         self.children[planet.name] = planet
-    
+
     def HasChild(self, name : str) -> bool:
         if name in self.children.keys(): return True
         else: return False

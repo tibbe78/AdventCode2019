@@ -10,4 +10,8 @@
         "pmodes",
         "pygame"
     ],
+    "cSpell.words": [
+        "isdigit",
+        "pylint"
+    ],
 }

@@ -206,7 +206,7 @@ class IntCode:
 robot = Robot()
 
 try:  
-    file = open('day11_input.txt', 'r') 
+    file = open('day11/day11_input.txt', 'r') 
 except IOError:
     print("Can't open file!!")
     sys.exit(0)

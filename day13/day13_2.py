@@ -1,5 +1,5 @@
 # --- Day 13: Care Package ---
-# Part One
+# Part Two
 
 import sys
 from day13.modules.arcade import Arcade

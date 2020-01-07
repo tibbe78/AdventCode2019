@@ -1,3 +1,5 @@
+"""[summary]
+"""
 import pygame
 import sys
 from pygame.locals import *
@@ -47,9 +49,10 @@ class RenderGame():
             elif arcade.screen.grid[tile].type == 4: color = RenderGame.ball
 
             pygame.draw.rect(RenderGame.display, color, pygame.Rect(scaleX, scaleY + RenderGame.topscore, RenderGame.imgScale - 1, RenderGame.imgScale - 1))
-        RenderGame.display.blit(text,(10, 2))
+        RenderGame.display.blit(text, (10, 2))
         pygame.display.update()
         #pygame.time.delay(500)
+
 
     @staticmethod
     def Quit():
