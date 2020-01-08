@@ -9,7 +9,8 @@ class Chemical:  # pylint: disable=too-few-public-methods
         self.name = name
         self.ingredients = {}
         self.reaction = None
-        self.quantity = 0
+        # Leftover from reactions
+        self.left_over = 0
 
     def has_ingredient(self, name: str) -> bool:
         '''check if the ingredient has children'''
@@ -32,8 +33,6 @@ class Reaction:
         self.ingredients = {}
         self.quantity = quantity
         self.chemical = chemical
-        # Which level in the tree structure of reactions this chemical is in.
-        self.level = None
         self.name = "{}_{}".format(self.chemical.name, self.quantity)
 
     def has_ingredient(self, name: str) -> bool:

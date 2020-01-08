@@ -25,7 +25,7 @@ def split_text(text) -> [int, str]:
     return [int(i) if i.isdigit() else i for i in text.strip().split(' ')]
 
 
-def main():
+def create_tree():
     ''' Main Program '''
 
     try:
@@ -77,8 +77,23 @@ def recursive_ore(_name: str, _quantity: int) -> int:
     return ore
 
 
-# Run the main program
-main()
+def find_fuel() -> int:
+    ''' find how much fuel we get from 1 trillion ore '''
+    not_found = True
+    test_amount = 10000
+    # get the ore needed
+    test_amount = int(TOTAL_ORE / recursive_ore('FUEL', test_amount) * test_amount)
+    while not_found:
+        amount = recursive_ore('FUEL', test_amount) / TOTAL_ORE
+        if amount > 1.0:
+            test_amount -= 1
+            not_found = False
+            return test_amount
+        else:
+            test_amount += 1
 
-# get the ore needed
-print("Ore needed is: {}".format(recursive_ore('FUEL', 1)))
+
+# Run the create tree function
+create_tree()
+
+print("1 trillion or gives {} amount of fuel".format(find_fuel()))

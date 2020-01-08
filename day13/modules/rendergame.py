@@ -35,6 +35,8 @@ class RenderGame():
     display=pygame.display.set_mode((imgWidth,imgHeight),0,32)
     font = pygame.font.Font(None, 30)
 
+    frame = 0
+
     @staticmethod
     def Update(arcade):
         text = RenderGame.font.render("Score: {}".format(arcade.score.value), True, (255, 255, 255))
@@ -51,6 +53,8 @@ class RenderGame():
             pygame.draw.rect(RenderGame.display, color, pygame.Rect(scaleX, scaleY + RenderGame.topscore, RenderGame.imgScale - 1, RenderGame.imgScale - 1))
         RenderGame.display.blit(text, (10, 2))
         pygame.display.update()
+        RenderGame.frame += 1
+        pygame.image.save(RenderGame.display, "./capture/{}.png".format(RenderGame.frame))
         #pygame.time.delay(500)
 
 
