@@ -45,7 +45,6 @@ def create_tree():
             chemical = add_chemical(name)
             ingredient = Ingredient(chemical, reaction, quantity)
             reaction.add_ingredient(ingredient)
-            chemical.add_ingredient(ingredient)
     file.close()
 
 

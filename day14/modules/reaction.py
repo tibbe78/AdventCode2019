@@ -7,21 +7,9 @@ class Chemical:  # pylint: disable=too-few-public-methods
     '''
     def __init__(self, name: str):
         self.name = name
-        self.ingredients = {}
         self.reaction = None
         # Leftover from reactions
         self.left_over = 0
-
-    def has_ingredient(self, name: str) -> bool:
-        '''check if the ingredient has children'''
-        return bool(name in self.ingredients.keys())
-
-    def add_ingredient(self, ingredient: 'Ingredient'):
-        '''Add a parent ingredient to a chemical'''
-        if not self.has_ingredient(ingredient.name):
-            self.ingredients[ingredient.name] = ingredient
-        else:
-            print("Error Ingredient exist!!")
 
     def __repr__(self):
         return "Chemical:{}".format(self.name)
