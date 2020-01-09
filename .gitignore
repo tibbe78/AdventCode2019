@@ -108,6 +108,4 @@ venv.bak/
 
 # vscode
 AdventCode.code-workspace
-
-# vscode
 .vscode/
