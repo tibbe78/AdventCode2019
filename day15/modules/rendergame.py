@@ -1,60 +1,81 @@
-"""renders via pygame
+"""
+renders game via pygame
 """
 import pygame
 import sys
-from pygame.locals import *
 from day15.modules.robot import Robot
-from day15.modules.hull import Plate
+from day15.modules.plate import Plate
+from pygame.locals import *
 
-#from day13.modules.screen import Screen
+# Storage types for Plates
+EMPTY = 0
+WALL = 1
+EXIT = 2
 
+# Colors
+COLOR_BLACK = (0, 0, 0)
+COLOR_EMPTY = (40, 40, 40)
+COLOR_WALL = (180, 180, 180)
+COLOR_EXIT = (30, 144, 255)
+COLOR_ROBOT = (220, 20, 60)
+
+
+# Scale the image so it's easier to see
+IMAGE_SCALE = 10
+
+IMAGE_WIDTH = 1800
+IMAGE_HEIGHT = 1000
+
+# Size of the rectangles...
+PIXEL_SIZE = IMAGE_SCALE - 1
 
 class RenderGame():
     ''' Draws the screen image with pygame '''
-    # Colors
-    colors = None
-    colors.empty = (0, 0, 0)
-    colors.walls = (255, 255, 255)
-    colors.oxygen = (30, 144, 255)
-    colors.robot = (220, 20, 60)
-
-    # Scale the image so it's easier to see
-    imgScale = 20
-
-    pygame.init()
-
-    imgWidth = 100 * imgScale
-    imgHeight = 100 * imgScale
-
-    display = pygame.display.set_mode((imgWidth, imgHeight), 0, 32)
 
     @staticmethod
-    def update_game(robot):
+    def init_game() -> object:
+        ''' init the game engine '''
+        pygame.init()
+        return pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT), 0, 32)
+
+    @staticmethod
+    def update_game(robot: Robot, display):
         ''' write to pygame output to show screen '''
-        RenderGame.display.fill(RenderGame.colors.empty)
-        for plate in robot.grid.values():
-            x_scaled = plate.pos_x * RenderGame.imgScale
-            y_scaled = plate.pos_y * RenderGame.imgScale
+
+        # Draw black background
+        display.fill(COLOR_BLACK)
+
+        # Draw all plates (pixels)
+        for plate in robot.hull.values():
+            x_scaled = (plate.position.x * IMAGE_SCALE) + (IMAGE_WIDTH / 2)
+            y_scaled = (plate.position.y * IMAGE_SCALE) + (IMAGE_HEIGHT / 2)
 
             if plate.type == 0:
-                color = RenderGame.colors.empty
+                pixel_color = COLOR_EMPTY
             elif plate.type == 1:
-                color = RenderGame.colors.walls
+                pixel_color = COLOR_WALL
             elif plate.type == 2:
-                color = RenderGame.colors.block
-            elif plate.type == 3:
-                color = RenderGame.colors.paddle
-            elif plate.type == 4:
-                color = RenderGame.colors.ball
-            rect_size = RenderGame.imgScale - 1
-            rectangle = pygame.Rect(x_scaled, y_scaled, rect_size, rect_size)
-            pygame.draw.rect(RenderGame.display, color, rectangle)
+                pixel_color = COLOR_EXIT
+            rectangle = pygame.Rect(x_scaled, y_scaled, PIXEL_SIZE, PIXEL_SIZE)
+            pygame.draw.rect(display, pixel_color, rectangle)
 
-        pygame.display.update()
-        pygame.time.delay(1000)
+        # Draw Robot
+        x_scaled = (robot.position.x * IMAGE_SCALE) + (IMAGE_WIDTH / 2)
+        y_scaled = (robot.position.y * IMAGE_SCALE) + (IMAGE_HEIGHT / 2)
+        rectangle = pygame.Rect(x_scaled, y_scaled, PIXEL_SIZE, PIXEL_SIZE)
+        pygame.draw.rect(display, COLOR_ROBOT, rectangle)
+
+        # Check if the game quits
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit(0)
+
+        pygame.display.flip()
+
 
     @staticmethod
     def quit_game():
         ''' quit the game '''
-        pygame.time.delay(3000)
         pygame.quit()
+        sys.exit(0)
