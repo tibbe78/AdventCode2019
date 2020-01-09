@@ -1,4 +1,4 @@
-''' class of the repair droid '''
+''' Program of the repair droid '''
 from day15.modules.hull import Hull
 
 

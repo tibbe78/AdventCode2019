@@ -54,7 +54,6 @@ class RenderGame():
         RenderGame.display.blit(text, (10, 2))
         pygame.display.update()
         RenderGame.frame += 1
-        pygame.image.save(RenderGame.display, "./capture/{}.png".format(RenderGame.frame))
         #pygame.time.delay(500)
 
 
