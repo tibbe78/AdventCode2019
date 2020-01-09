@@ -10,11 +10,11 @@ from dataclasses import dataclass
 class Plate:
     def __init__(self,x,y, color=0):
         self.x = x
-        self.y = y  
+        self.y = y
         self.timesTraversed = 1
         self.color = color
         self.name = "Plate_X:{}_Y:{}".format(self.x, self.y)
-            
+
     def __repr__(self):
         return self.name
 
@@ -23,18 +23,18 @@ class Hull:
     def __init__(self):
         # directory of Grid Plates
         self.grid = {}
-    
+
     def AddPlate(self, plate: Plate):
         self.grid[plate.name] = plate
-        
+
     def CheckIfExists(self, plate: Plate):
-        if not plate.name in self.grid.keys(): 
+        if not plate.name in self.grid.keys():
             self.AddPlate(plate)
-    
+
     def getColor(self, plate) -> int:
         self.CheckIfExists(plate)
         return self.grid[plate.name].color
-    
+
     def SetColor(self, plate):
         self.CheckIfExists(plate)
         self.grid[plate.name].color = plate.color
