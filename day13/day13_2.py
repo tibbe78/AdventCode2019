@@ -48,7 +48,9 @@ while instrPoint < len(opCodeList):
     else:
         print("Error no opCode??!!")
         sys.exit(0)
-    instrPoint = intCode.GetInstrPointer() # Get back the updated instruction pointer
-    relativeBase = intCode.GetBasePointer() # and alsi the BasePointer or as called Relative Pointer.
+    # Get back the updated instruction pointer
+    instrPoint = intCode.GetInstrPointer()
+    # and also the BasePointer or as called Relative Pointer.
+    relativeBase = intCode.GetBasePointer()
 
 print("Didn't find a solution!!!!!!")
