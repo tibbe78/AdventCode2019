@@ -7,7 +7,7 @@ from day15.modules.robot import Robot
 from day15.modules.utils import Pointer
 from day15.modules.parameter import Parameter
 
-
+@dataclass
 class IntCode:
     ''' Main class of the IntCode '''
 

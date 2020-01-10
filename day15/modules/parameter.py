@@ -1,11 +1,11 @@
 '''
 Class used in the intcode to process the parameters of the opcode
 '''
-
+from dataclasses import dataclass
 from day15.modules.utils import Pointer
 import day15.modules.intcode
 
-
+@dataclass
 class Parameter:
     ''' Class to handle the opcode parameters '''
 

@@ -1,6 +1,7 @@
 ''' Program of the repair droid '''
 
 import random
+from dataclasses import dataclass
 from day15.modules.plate import Plate
 from day15.modules.utils import Vector2D
 
@@ -17,6 +18,7 @@ EMPTY = 0
 WALL = 1
 EXIT = 2
 
+@dataclass
 class Robot:
     ''' class of the repair droid '''
 
@@ -45,7 +47,7 @@ class Robot:
             new_direction = random.randint(1, 4)
         self.direction = new_direction
 
-    def move(self, _type):
+    def move(self, _type: int):
         ''' function to move the droid '''
         # Take on step in direction
         if self.direction == 1:
@@ -77,7 +79,7 @@ class Robot:
         ''' function to handle input to the computer '''
         return self.direction
 
-    def handle_output(self, output):
+    def handle_output(self, output : int):
         ''' function to handle output from to the computer
         0: The repair droid hit a wall. Its position has not changed.
         1: The repair droid has moved one step in the requested direction.

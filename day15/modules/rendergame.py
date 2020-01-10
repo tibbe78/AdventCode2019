@@ -39,7 +39,7 @@ class RenderGame():
         return pygame.display.set_mode((IMAGE_WIDTH, IMAGE_HEIGHT), 0, 32)
 
     @staticmethod
-    def update_game(robot: Robot, display):
+    def update_game(robot: Robot, display: object):
         ''' write to pygame output to show screen '''
 
         # Draw black background

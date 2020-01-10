@@ -7,7 +7,7 @@ from day15.modules.utils import Vector2D
 class Plate:
     ''' Class of one plate of the hull, like a pixel. '''
 
-    def __init__(self, x, y, _type=0):
+    def __init__(self, x: int, y: int, _type=0):
         # x, y position
         self.position = Vector2D(x, y)
         # What type of plate it is (empty, wall, exit)
