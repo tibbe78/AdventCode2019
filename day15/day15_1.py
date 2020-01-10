@@ -4,7 +4,8 @@
 
 import sys
 import os
-import time
+from time import perf_counter
+from time import sleep
 from day15.modules.robot import Robot
 from day15.modules.intcode import IntCode
 from day15.modules.utils import Pointer
@@ -60,9 +61,9 @@ def main():
     #os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (0,0)
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     print("Initilizing...")
-    time.sleep(2)
+    sleep(1)
     display = RenderGame.init_game()
-    start_time = time.perf_counter()
+    start_time = perf_counter()
     robot = Robot("Wall-E")
     code_list = get_codelist()
     # instruction & relative pointer in the opcode so we know where in the code we are.
@@ -73,9 +74,8 @@ def main():
         check_command(int_code, robot)
         # after and output command check if we should render screen
         if int_code.opcode == 4:
-            if time.perf_counter() - start_time > TIME_DELTA:
+            if perf_counter() - start_time > TIME_DELTA:
                 RenderGame.update_game(robot, display)
-
 
 
 # Run the main program
