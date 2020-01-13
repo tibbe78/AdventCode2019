@@ -4,7 +4,6 @@ renders game via pygame
 import pygame
 import sys
 from day15.modules.robot import Robot
-from day15.modules.plate import Plate
 from pygame.locals import *
 
 # Storage types for Plates
@@ -46,9 +45,9 @@ class RenderGame():
         display.fill(COLOR_BLACK)
 
         # Draw all plates (pixels)
-        for plate in robot.hull.values():
-            x_scaled = (plate.position.x * IMAGE_SCALE) + (IMAGE_WIDTH / 2)
-            y_scaled = (plate.position.y * IMAGE_SCALE) + (IMAGE_HEIGHT / 2)
+        for plate  in robot.hull.values():
+            x_scaled = (plate.position_x * IMAGE_SCALE) + (IMAGE_WIDTH / 2)
+            y_scaled = (plate.position_y * IMAGE_SCALE) + (IMAGE_HEIGHT / 2)
 
             if plate.type == 0:
                 pixel_color = COLOR_EMPTY
@@ -60,8 +59,8 @@ class RenderGame():
             pygame.draw.rect(display, pixel_color, rectangle)
 
         # Draw Robot
-        x_scaled = (robot.position.x * IMAGE_SCALE) + (IMAGE_WIDTH / 2)
-        y_scaled = (robot.position.y * IMAGE_SCALE) + (IMAGE_HEIGHT / 2)
+        x_scaled = (robot.position_x * IMAGE_SCALE) + (IMAGE_WIDTH / 2)
+        y_scaled = (robot.position_y * IMAGE_SCALE) + (IMAGE_HEIGHT / 2)
         rectangle = pygame.Rect(x_scaled, y_scaled, PIXEL_SIZE, PIXEL_SIZE)
         pygame.draw.rect(display, COLOR_ROBOT, rectangle)
 

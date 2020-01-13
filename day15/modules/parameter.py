@@ -13,7 +13,7 @@ class Parameter:
         self.param = list()  # parameters to the opcode as a list.
         self.value = list()  # values based on parameter & mode as a list
         # the intcode parent
-        self.parent = parent
+        self.parent: 'IntCode' = parent
         # parameter modes, end at -2 in string. like '11' from above '1102' blob
         mode_raw = parent.blob[:-2]
         # Reversed list of the parameters
@@ -34,7 +34,7 @@ class Parameter:
         '''
         for i in range(num):  # Create one parameter at the time.
             # the location of the parameter in the Computer Mem
-            location = self.parent.pointer.instruction+(i+1)
+            location: Pointer = self.parent.pointer.instruction+(i+1)
             # Create the parameter to the opcode.
             self.param.append(self.parent.code_list[location])
 

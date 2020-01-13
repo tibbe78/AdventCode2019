@@ -15,7 +15,7 @@ class IntCode:
         self.blob = str(_code_list[pointer.instruction])  # Like '1102'
         # start at -2 in string. Like '02' from blob
         self.opcode = int(self.blob[-2:])
-        self.pointer = pointer
+        self.pointer: Pointer = pointer
         # Pointer to the rest of the computerMem or program.
         self.code_list = _code_list
         self.parameter = Parameter(self)

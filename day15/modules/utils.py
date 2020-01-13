@@ -1,15 +1,9 @@
 ''' Utilites program '''
+
 from dataclasses import dataclass
 
 @dataclass
-class Vector2D:
-    ''' 2d vector class '''
-    x: int = 0
-    y: int = 0
-
-
-@dataclass
-class Pointer:
+class Pointer():
     ''' Class to handle the instruction pointer and relative pointer '''
     instruction: int = 0
     relative: int = 0
