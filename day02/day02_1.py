@@ -1,4 +1,5 @@
-# --- Day 2: 1202 Program Alarm ---
+#! /usr/bin/python3
+# # --- Day 2: 1202 Program Alarm ---
 # Part One
 
 import sys
@@ -6,7 +7,7 @@ import sys
 # Should we debug or not.
 debug = False
 
-opCodeList = list
+opCodeList = []
 
 def Addfunct(pos1, pos2, pos3):
     if debug: print("Add function args are:  " + str(pos1) + " " + str(pos2) + " " + str(pos3))

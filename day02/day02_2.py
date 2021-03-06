@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 # --- Day 2: 1202 Program Alarm ---
 # Part Two
 
@@ -7,7 +8,7 @@ import sys
 debug = False
 
 # the opcode list initilized as a list... :)
-opCodeList = list
+opCodeList = []
 
 # Add function that returns true if there is an error.
 def Addfunct(pos1, pos2, pos3, _len):

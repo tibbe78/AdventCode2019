@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 # --- Day 3: Crossed Wires ---
 # Part One
 

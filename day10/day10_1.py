@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 # --- Day 10: Monitoring Station ---
 # Part One
 

@@ -1,5 +1,5 @@
 from dataclasses import dataclass  
-from robot import Robot
+from day11.robot import Robot
    
 @dataclass
 class IntCode:

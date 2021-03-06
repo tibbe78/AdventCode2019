@@ -106,6 +106,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# vscode
-AdventCode.code-workspace
-.vscode/
+

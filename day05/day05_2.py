@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 # --- Day 5: Sunny with a Chance of Asteroids ---
 # Part Two
 
@@ -7,7 +8,7 @@ import sys
 debug = False
 
 # the opcode list initilized as a list... :)
-opCodeList = list()
+opCodeList = []
 
 def Addfunct(arg1, param1, arg2, param2, arg3):
     if debug: print("Add function args are:  " + str(arg1) + " " + str(arg2) + " " + str(arg3))

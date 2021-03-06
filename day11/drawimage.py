@@ -2,7 +2,7 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
-from robot import Robot
+from day11.robot import Robot
 
 def DrawImage(robot :Robot):
     ''' Draws the hull image '''

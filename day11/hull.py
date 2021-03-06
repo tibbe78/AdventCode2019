@@ -1,4 +1,4 @@
-from hullplate import Plate
+from day11.hullplate import Plate
 from dataclasses import dataclass
 
 @dataclass

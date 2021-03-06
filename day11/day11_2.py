@@ -1,10 +1,11 @@
+#! /usr/bin/python3
 # --- Day 11: Space Police ---
 # Part Two
 
 import sys
-from robot import Robot
-from intcode import IntCode
-from drawimage import DrawImage
+from day11.robot import Robot
+from day11.intcode import IntCode
+from day11.drawimage import DrawImage
  
 
 robot = Robot()
