@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/env python3
 # --- Day 3: Crossed Wires ---
 # Part Two
 

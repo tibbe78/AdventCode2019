@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/env python3
 # --- Day 1: The Tyranny of the Rocket Equation ---
 # Part Two
 

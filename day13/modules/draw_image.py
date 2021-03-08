@@ -2,10 +2,9 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
-from day13.modules.arcade import Arcade
+from day13.modules.flipper import Screen
 
-
-def DrawImage(arcade: Arcade):
+def DrawImage(screen: Screen):
     ''' Draws the hull image '''
 
 
@@ -25,22 +24,22 @@ def DrawImage(arcade: Arcade):
     # Scale the image so it's easier to see
     imgScale = 20
 
-    imgWidth = (arcade.screen.maxX + 1) * imgScale
-    imgHeight = (arcade.screen.maxY + 1) * imgScale
+    imgWidth = (screen.maxX + 1) * imgScale
+    imgHeight = (screen.maxY + 1) * imgScale
 
     # Create the RGB image with
     img = Image.new(mode = "RGB", size = (imgWidth,imgHeight))
     draw = ImageDraw.Draw(img)
     # Create the image
-    for tile in arcade.screen.grid.keys():
-        scaleX = (arcade.screen.grid[tile].x) * imgScale
-        scaleY = (arcade.screen.grid[tile].y) * imgScale
+    for tile in screen.grid.keys():
+        scaleX = (screen.grid[tile].x) * imgScale
+        scaleY = (screen.grid[tile].y) * imgScale
         # draw pixel but scaled
 
-        if arcade.screen.grid[tile].type == 1: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=walls)
-        elif arcade.screen.grid[tile].type == 2: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=block)
-        elif arcade.screen.grid[tile].type == 3: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=paddle)
-        elif arcade.screen.grid[tile].type == 4: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=ball)
+        if screen.grid[tile].type == 1: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=walls)
+        elif screen.grid[tile].type == 2: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=block)
+        elif screen.grid[tile].type == 3: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=paddle)
+        elif screen.grid[tile].type == 4: draw.rectangle([(scaleX, scaleY), (scaleX+imgScale-2, scaleY+imgScale-2)], fill=ball)
     rotated = img.rotate(180)
     flipped = ImageOps.mirror(rotated)
     img.show()

@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/env python3
 
 # --- Day 7: Amplification Circuit ---
 # Part One

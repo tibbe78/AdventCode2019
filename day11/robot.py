@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-from hull import Hull
-from hullplate import Plate
+from day11.hull import Hull
+from day11.hullplate import Plate
 
 @dataclass
 class Robot:

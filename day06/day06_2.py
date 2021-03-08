@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # --- Day 6: Universal Orbit Map ---
 # Part Two
 

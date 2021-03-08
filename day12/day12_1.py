@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 # --- Day 12: The N-Body Problem ---
 # Part One
+from day12.modules.moon import Moon
 import sys
 from typing import List
-from day12.modules.moon import Moon
 
 # Main Code -------------------------------------------------
 

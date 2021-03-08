@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#!/usr/bin/env python3
 # # --- Day 2: 1202 Program Alarm ---
 # Part One
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # --- Day 9: Sensor Boost ---
 # Part One & Two
 
