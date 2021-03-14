@@ -3,8 +3,7 @@
 # Part One
 
 import sys
-from day13.modules.flipper_logic import FlipperLogic
-
+from day13.packages.logic.flipper.flipper_logic import FlipperLogic
 
 def main():
     flipper = FlipperLogic()

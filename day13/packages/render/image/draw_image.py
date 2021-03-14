@@ -2,7 +2,6 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
-from day13.modules.flipper import Screen
 
 def DrawImage(screen: Screen):
     ''' Draws the hull image '''
