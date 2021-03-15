@@ -5,7 +5,7 @@
 import sys
 from day13.packages.logic.flipper.flipper_logic import FlipperLogic
 from day13.packages.logic.intcode import IntCode
-from day13.packages.render.image.draw_image import DrawImage
+from day13.packages.render.draw_image import DrawImage
 
 def main():
     flipper = FlipperLogic()
@@ -29,9 +29,9 @@ def main():
         elif intCode.opcode == 2:
             intCode.Multiply()
         elif intCode.opcode == 3:
-            intCode.GetInput()
+            intCode.GetInput(flipper.GetJoystickPos())
         elif intCode.opcode == 4:
-            intCode.SendOutput()
+            flipper.HandleOutput(intCode.SendOutput())
         elif intCode.opcode == 5:
             intCode.JumpIfTrue()
         elif intCode.opcode == 6:

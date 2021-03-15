@@ -101,15 +101,15 @@ class IntCode(object):
         self.compMem[self.value[2]] = self.value[0] * self.value[1]
         self.instrPoint += 4
 
-    def GetInput(self):
+    def GetInput(self, flipperinput : int):
         self.SetParameters(1, 0)
-        self.compMem[self.value[0]] = self.flipper.GetJoystickPos()
+        self.compMem[self.value[0]] = flipperinput
         self.instrPoint += 2
 
     def SendOutput(self):
         self.SetParameters(1)
-        self.flipper.HandleOutput(self.value[0])
         self.instrPoint += 2
+        return self.value[0]
 
     def JumpIfTrue(self):
         self.SetParameters(2)

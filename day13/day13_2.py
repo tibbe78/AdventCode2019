@@ -3,29 +3,13 @@
 # Part Two
 
 import sys
-from day13.modules.arcadewindow import ArcadeWindow
-
-
-def main():
-    try:
-        file = open('./day13_input.txt', 'r')
-    except IOError:
-        print("Can't open file!!")
-        sys.exit(0)
-    opCodeRaw = file.readline().strip()
-    file.close()
-    opCodeList = list(map(int, opCodeRaw.split(","))).copy()
-    _arcadeWindow = ArcadeWindow()
-    _arcadeWindow.setup()
-    _arcadeWindow.start()
-
-
-if __name__ == "__main__":
-    main()
-
+from day13.packages.logic.flipper.flipper_logic import FlipperLogic
+from day13.packages.logic.intcode import IntCode
+from day13.packages.render.draw_image import DrawImage
+from day13.packages.render.arcade_game import ArcadeWindow
 
 def ProcessIntCode():
-    _flipper = Flipper()
+    _flipper = FlipperLogic()
     # instruction pointer in the opcode so we know where in the code we are.
     instrPoint = 0
     # Relative Base Pointer, will be changed by the program.
@@ -38,8 +22,8 @@ def ProcessIntCode():
         intCode.SetBasePointer(relativeBase) # set the basePointer
         if intCode.opcode == 1: intCode.Add()
         elif intCode.opcode == 2: intCode.Multiply()
-        elif intCode.opcode == 3: intCode.GetInput(_flipper)
-        elif intCode.opcode == 4: intCode.SendOutput(_flipper)
+        elif intCode.opcode == 3: intCode.GetInput(flipper.GetJoystickPos())
+        elif intCode.opcode == 4: flipper.HandleOutput(intCode.SendOutput())
         elif intCode.opcode == 5: intCode.JumpIfTrue()
         elif intCode.opcode == 6: intCode.JumpIfFalse()
         elif intCode.opcode == 7: intCode.IfLessThan()
@@ -58,3 +42,21 @@ def ProcessIntCode():
         # and also the BasePointer or as called Relative Pointer.
         relativeBase = intCode.GetBasePointer()
     print("Didn't find a solution!!!!!!")
+
+
+def main():
+    try:
+        file = open('./day13_input.txt', 'r')
+    except IOError:
+        print("Can't open file!!")
+        sys.exit(0)
+    opCodeRaw = file.readline().strip()
+    file.close()
+    opCodeList = list(map(int, opCodeRaw.split(","))).copy()
+    _arcadeWindow = ArcadeWindow()
+    _arcadeWindow.setup()
+    _arcadeWindow.start()
+
+
+if __name__ == "__main__":
+    main()

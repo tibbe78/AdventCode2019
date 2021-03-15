@@ -2,8 +2,9 @@
 from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageOps
+from day13.packages.logic.flipper.screen_tile import ScreenTile
 
-def DrawImage(screen: Screen):
+def DrawImage(screen: ScreenTile):
     ''' Draws the hull image '''
 
 

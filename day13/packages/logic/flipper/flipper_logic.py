@@ -22,11 +22,11 @@ class FlipperLogic:
 
     def UpdatePaddle(self):
         if self.output.type == 3:
-            self.paddle.Update(self.output)
+            self.paddle.update(self.output)
 
     def UpdateBall(self):
         if self.output.type == 4:
-            self.ball.Update(self.output)
+            self.ball.update(self.output)
 
     def HandleOutput(self, data):
         self.output.update(data)
