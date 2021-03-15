@@ -1,12 +1,17 @@
 """[summary]
 The arcade game engine to draw game to screen
 """
+from day13.day13_1 import main
+from typing import List
 import arcade
 import sys
 import time
 from numbers import Number
 import gc
 import os
+from day13.packages.logic.computer import maincode
+
+from day13.packages.logic.computer.maincode import MainCode
 
 # Colors
 colorEmpty = arcade.color.BLACK
@@ -34,9 +39,10 @@ class ArcadeWindow(arcade.Window):
         self.imgWidth = 40 * self.imgScale
         self.imgHeight = 24 * self.imgScale + self.topscore  # 100 pix for text at top
 
-    def setup(self):
+    def setup(self, opCodeList : List, startValue : int):
         """ Set up the game here. Call this function to restart the game. """
-        pass
+        _mainCode = MainCode(opCodeList,startValue)
+
 
     def start(self):
         arcade.run()

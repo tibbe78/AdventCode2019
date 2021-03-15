@@ -4,8 +4,8 @@
 
 import sys
 from day13.packages.logic.flipper.flipper_logic import FlipperLogic
-from day13.packages.logic.intcode import IntCode
-from day13.packages.render.draw_image import DrawImage
+from day13.packages.logic.computer.intcode import IntCode
+from day13.packages.render.draw_image import drawImage
 
 def main():
     flipper = FlipperLogic()
@@ -25,36 +25,36 @@ def main():
     while instrPoint < len(opCodeList):
         intCode.reset(instrPoint, relativeBase)
         if intCode.opcode == 1:
-            intCode.Add()
+            intCode.add()
         elif intCode.opcode == 2:
-            intCode.Multiply()
+            intCode.multiply()
         elif intCode.opcode == 3:
-            intCode.GetInput(flipper.GetJoystickPos())
+            intCode.getInput(flipper.getJoystickPos())
         elif intCode.opcode == 4:
-            flipper.HandleOutput(intCode.SendOutput())
+            flipper.handleOutput(intCode.sendOutput())
         elif intCode.opcode == 5:
-            intCode.JumpIfTrue()
+            intCode.jumpIfTrue()
         elif intCode.opcode == 6:
-            intCode.JumpIfFalse()
+            intCode.jumpIfFalse()
         elif intCode.opcode == 7:
-            intCode.IfLessThan()
+            intCode.ifLessThan()
         elif intCode.opcode == 8:
-            intCode.IfEquals()
+            intCode.ifEquals()
         elif intCode.opcode == 9:
-            intCode.ChangeBase()
+            intCode.setBasePointer()
         elif intCode.opcode == 99:
             print("OpCode 99 Exit")
-            flipper.screen.CountBlockTiles()
-            DrawImage(flipper.screen)
+            flipper.screen.countBlockTiles()
+            drawImage(flipper.screen)
             sys.exit(0)
         else:
             print("Error no opCode??!!")
             sys.exit(0)
         instrPoint = (
-            intCode.GetInstrPointer()
+            intCode.getInstrPointer()
         )  # Get back the updated instruction pointer
         relativeBase = (
-            intCode.GetBasePointer()
+            intCode.getBasePointer()
         )  # and alsi the BasePointer or as called Relative Pointer.
     print("Didn't find a solution!!!!!!")
 

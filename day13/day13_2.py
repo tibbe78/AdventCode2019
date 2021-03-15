@@ -3,46 +3,7 @@
 # Part Two
 
 import sys
-from day13.packages.logic.flipper.flipper_logic import FlipperLogic
-from day13.packages.logic.intcode import IntCode
-from day13.packages.render.draw_image import DrawImage
 from day13.packages.render.arcade_game import ArcadeWindow
-
-def ProcessIntCode():
-    _flipper = FlipperLogic()
-    # instruction pointer in the opcode so we know where in the code we are.
-    instrPoint = 0
-    # Relative Base Pointer, will be changed by the program.
-    relativeBase = 0
-    # Add quarters to play for free
-    opCodeList[0] = 2
-    # Go through the oplist and check the values
-    while instrPoint < len(opCodeList):
-        intCode = IntCode(instrPoint,opCodeList) # init the IntCode class
-        intCode.SetBasePointer(relativeBase) # set the basePointer
-        if intCode.opcode == 1: intCode.Add()
-        elif intCode.opcode == 2: intCode.Multiply()
-        elif intCode.opcode == 3: intCode.GetInput(flipper.GetJoystickPos())
-        elif intCode.opcode == 4: flipper.HandleOutput(intCode.SendOutput())
-        elif intCode.opcode == 5: intCode.JumpIfTrue()
-        elif intCode.opcode == 6: intCode.JumpIfFalse()
-        elif intCode.opcode == 7: intCode.IfLessThan()
-        elif intCode.opcode == 8: intCode.IfEquals()
-        elif intCode.opcode == 9: intCode.ChangeBase()
-        elif intCode.opcode == 99:
-            print("Game Quit")
-            print("Arcade Score: {}".format(_flipper.score.value))
-            _arcadeWindow.quit()
-            sys.exit(0)
-        else:
-            print("Error no opCode??!!")
-            sys.exit(0)
-        # Get back the updated instruction pointer
-        instrPoint = intCode.GetInstrPointer()
-        # and also the BasePointer or as called Relative Pointer.
-        relativeBase = intCode.GetBasePointer()
-    print("Didn't find a solution!!!!!!")
-
 
 def main():
     try:
@@ -53,8 +14,10 @@ def main():
     opCodeRaw = file.readline().strip()
     file.close()
     opCodeList = list(map(int, opCodeRaw.split(","))).copy()
+    
+    startValue = 2
     _arcadeWindow = ArcadeWindow()
-    _arcadeWindow.setup()
+    _arcadeWindow.setup(opCodeList,startValue)
     _arcadeWindow.start()
 
 

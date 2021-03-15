@@ -11,7 +11,7 @@ class VirtualScreen:
     minY:int = 0
     maxY:int = 0
 
-    def AddTile(self, tile: ScreenTile):
+    def addTile(self, tile: ScreenTile):
         if tile.x > self.maxX:
             self.maxX = tile.x
         if tile.y > self.maxY:
@@ -22,15 +22,15 @@ class VirtualScreen:
             self.minY = tile.y
         self.grid[tile.name] = tile
 
-    def CheckIfExists(self, tile: ScreenTile):
+    def checkIfExists(self, tile: ScreenTile):
         if not tile.name in self.grid.keys():
-            self.AddTile(tile)
+            self.addTile(tile)
 
-    def SetType(self, tile):
-        self.CheckIfExists(tile)
+    def setType(self, tile):
+        self.checkIfExists(tile)
         self.grid[tile.name].type = tile.type
 
-    def CountBlockTiles(self):
+    def countBlockTiles(self):
         """ Count Block tiles """
         i = 0
         for tile in self.grid.keys():

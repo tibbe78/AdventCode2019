@@ -20,27 +20,27 @@ class FlipperLogic:
         # 0 = neutral, -1 = left, 1 = right
         self.joystickPosition = 0
 
-    def UpdatePaddle(self):
+    def updatePaddle(self):
         if self.output.type == 3:
             self.paddle.update(self.output)
 
-    def UpdateBall(self):
+    def updateBall(self):
         if self.output.type == 4:
             self.ball.update(self.output)
 
-    def HandleOutput(self, data):
+    def handleOutput(self, data):
         self.output.update(data)
         if self.output.state == 0:
             if self.output.x == -1 and self.output.y == 0:
                 self.score = self.output.type
             else:
-                self.UpdateBall()
-                self.UpdatePaddle()
-                self.screen.SetType(
+                self.updateBall()
+                self.updatePaddle()
+                self.screen.setType(
                     ScreenTile(self.output.x, self.output.y, self.output.type)
                 )
 
-    def GetJoystickPos(self) -> int:
+    def getJoystickPos(self) -> int:
         if self.ball.x > self.paddle.x:
             self.joystickPosition = 1
         elif self.ball.x < self.paddle.x:

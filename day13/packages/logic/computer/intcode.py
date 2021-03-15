@@ -31,13 +31,13 @@ class IntCode(object):
         self.__init__(intPoint,self.compMem)
         self.basePointer = baseP
 
-    def GetInstrPointer(self) -> int:
+    def getInstrPointer(self) -> int:
         return self.instrPoint
 
-    def GetBasePointer(self) -> int:
+    def getBasePointer(self) -> int:
         return self.basePointer
 
-    def SetParameters(self, num, writeNum=9):
+    def setParameters(self, num, writeNum=9):
         """
         Set the parameters accompanying the Operation Code. Can be up to three
         parameters. num is equal to the amount of parameters and writeNum specifies if one
@@ -91,58 +91,58 @@ class IntCode(object):
             else:
                 print("Error!!")
 
-    def Add(self):  # Add function that Add two values together
-        self.SetParameters(3, 2)
+    def add(self):  # Add function that Add two values together
+        self.setParameters(3, 2)
         self.compMem[self.value[2]] = self.value[0] + self.value[1]
         self.instrPoint += 4
 
-    def Multiply(self):  # Add function that Multiply two values together
-        self.SetParameters(3, 2)
+    def multiply(self):  # Add function that Multiply two values together
+        self.setParameters(3, 2)
         self.compMem[self.value[2]] = self.value[0] * self.value[1]
         self.instrPoint += 4
 
-    def GetInput(self, flipperinput : int):
-        self.SetParameters(1, 0)
+    def getInput(self, flipperinput : int):
+        self.setParameters(1, 0)
         self.compMem[self.value[0]] = flipperinput
         self.instrPoint += 2
 
-    def SendOutput(self):
-        self.SetParameters(1)
+    def sendOutput(self):
+        self.setParameters(1)
         self.instrPoint += 2
         return self.value[0]
 
-    def JumpIfTrue(self):
-        self.SetParameters(2)
+    def jumpIfTrue(self):
+        self.setParameters(2)
         if self.value[0] != 0:
             self.instrPoint = self.value[1]
         else:
             self.instrPoint += 3
 
-    def JumpIfFalse(self):
-        self.SetParameters(2)
+    def jumpIfFalse(self):
+        self.setParameters(2)
         if self.value[0] == 0:
             self.instrPoint = self.value[1]
         else:
             self.instrPoint += 3
 
-    def IfLessThan(self):
-        self.SetParameters(3, 2)
+    def ifLessThan(self):
+        self.setParameters(3, 2)
         if self.value[0] < self.value[1]:
             self.compMem[self.value[2]] = 1
         else:
             self.compMem[self.value[2]] = 0
         self.instrPoint += 4
 
-    def IfEquals(self):
-        self.SetParameters(3, 2)
+    def ifEquals(self):
+        self.setParameters(3, 2)
         if self.value[0] == self.value[1]:
             self.compMem[self.value[2]] = 1
         else:
             self.compMem[self.value[2]] = 0
         self.instrPoint += 4
 
-    def ChangeBase(self):
-        self.SetParameters(1)
+    def setBasePointer(self):
+        self.setParameters(1)
         self.basePointer += self.value[0]
         self.instrPoint += 2
 
