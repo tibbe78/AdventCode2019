@@ -5,30 +5,25 @@
 import sys
 from day13.packages.logic.flipper.flipper_logic import FlipperLogic
 from day13.packages.logic.intcode import IntCode
+from day13.packages.render.image.draw_image import DrawImage
 
 def main():
     flipper = FlipperLogic()
-    
     try:
         file = open("./day13_input.txt", "r")
     except IOError as err:
         print("Can't open file!!: {0}".format(err))
         sys.exit(0)
-
     opCodeRaw = file.readline().strip()
     opCodeList = list(map(int, opCodeRaw.split(","))).copy()
-
     # instruction pointer in the opcode so we know where in the code we are.
     instrPoint = 0
-
     # Relative Base Pointer, will be changed by the program.
     relativeBase = 0
-    
-    intCode = IntCode(instrPoint, opCodeList)  # init the IntCode class
-
-    # Go through the oplist and check the values
+    intCode = IntCode(instrPoint, opCodeList)  
+    # Go through the oplist and check the values (Run the computer)
     while instrPoint < len(opCodeList):
-        intCode.reset(instrPoint,relativeBase)
+        intCode.reset(instrPoint, relativeBase)
         if intCode.opcode == 1:
             intCode.Add()
         elif intCode.opcode == 2:
@@ -61,9 +56,7 @@ def main():
         relativeBase = (
             intCode.GetBasePointer()
         )  # and alsi the BasePointer or as called Relative Pointer.
-
     print("Didn't find a solution!!!!!!")
-
 
 if __name__ == "__main__":
     main()
