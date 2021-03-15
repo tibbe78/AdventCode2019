@@ -4,6 +4,7 @@
 
 import sys
 from day13.packages.logic.flipper.flipper_logic import FlipperLogic
+from day13.packages.logic.intcode import IntCode
 
 def main():
     flipper = FlipperLogic()
