@@ -1,14 +1,14 @@
 
 
 class IntCode(object):
-    def __init__(self, _instrPoint: int, _compMem: list):
+    def __init__(self, _instrPoint: int, _compMem: list, basePointer:int):
         """
         Init the Class IntCode with the instruction pointer and a pointer to the ComputerMem (program)
         """
         self.blob = str(_compMem[_instrPoint])  # Like '1102'
         self.opcode = int(self.blob[-2:])  # start at -2 in string. Like '02' from blob
-        self.param = list()  # parameters to the opcode as a list.
-        self.value = list()  # values based on parameter & mode as a list
+        self.param = []  # parameters to the opcode as a list.
+        self.value = []  # values based on parameter & mode as a list
         self.pModesRaw = self.blob[
             :-2
         ]  # parameter modes, end at -2 in string. like '11' from above '1102' blob
@@ -17,7 +17,7 @@ class IntCode(object):
         ]  # Reversed list of the parameters
         self.pMode = [0, 0, 0]  # set the parameter modes default
         self.instrPoint = _instrPoint
-        self.basePointer = None
+        self.basePointer = basePointer
         self.compMem = _compMem  # Pointer to the rest of the computerMem or program.
         # find & set parameter modes like [0,1,1] from above raw pmodes.
         for i in range(
@@ -26,10 +26,6 @@ class IntCode(object):
             self.pMode[i] = int(
                 self.pModesRevList[i]
             )  # set the pmode to the pmode in the list
-
-    def reset(self,intPoint:int, baseP:int):
-        self.__init__(intPoint,self.compMem)
-        self.basePointer = baseP
 
     def getInstrPointer(self) -> int:
         return self.instrPoint

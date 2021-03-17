@@ -50,12 +50,8 @@ def main():
         else:
             print("Error no opCode??!!")
             sys.exit(0)
-        instrPoint = (
-            intCode.getInstrPointer()
-        )  # Get back the updated instruction pointer
-        relativeBase = (
-            intCode.getBasePointer()
-        )  # and alsi the BasePointer or as called Relative Pointer.
+        instrPoint = intCode.getInstrPointer() # Get back the updated instruction pointer
+        relativeBase = intCode.getBasePointer() # and alsi the BasePointer or as called Relative Pointer.
     print("Didn't find a solution!!!!!!")
 
 if __name__ == "__main__":
